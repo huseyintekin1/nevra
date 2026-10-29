@@ -37,7 +37,7 @@ final class ClipboardWatcher {
 
     /// No registered default: a missing preference is false.
     static var isEnabled: Bool {
-        get { UserDefaults.standard.bool(forKey: "clipboardEnabled") }
+        get { UserDefaults.standard.object(forKey: "clipboardEnabled") as? Bool ?? true }
         set { UserDefaults.standard.set(newValue, forKey: "clipboardEnabled") }
     }
 

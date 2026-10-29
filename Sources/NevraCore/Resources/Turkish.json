@@ -1176,5 +1176,7 @@
   "Keep link copies": "Bağlantı kopyalarını sakla",
   "Image retention": "Görsel saklama süresi",
   "Text retention": "Metin saklama süresi",
-  "Link retention": "Bağlantı saklama süresi"
+  "Link retention": "Bağlantı saklama süresi",
+  "Default Shelf View": "Varsayılan Raf Görünümü",
+  "Choose which shelves appear when opened with hotkey.": "Kısayolla açıldığında hangi rafların görüneceğini seçin."
 }

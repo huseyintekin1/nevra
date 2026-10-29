@@ -19,8 +19,8 @@ final class BrandMigrationTests:XCTestCase {
         defaults.set("preserved history",forKey:"history")
         let store=UnusedCredentials()
         let updater=await MainActor.run { AppUpdater(credentials:store,defaults:defaults) }
-        await MainActor.run { XCTAssertEqual(updater.repository?.slug,"HT/nevra");XCTAssertTrue(updater.hasSavedToken);XCTAssertTrue(updater.requiresToken) }
-        XCTAssertEqual(defaults.string(forKey:"TangerineUpdateGitHubRepository"),"HT/nevra")
+        await MainActor.run { XCTAssertEqual(updater.repository?.slug,"huseyintekin1/nevra");XCTAssertTrue(updater.hasSavedToken);XCTAssertTrue(updater.requiresToken) }
+        XCTAssertEqual(defaults.string(forKey:"TangerineUpdateGitHubRepository"),"huseyintekin1/nevra")
         XCTAssertFalse(defaults.bool(forKey:"TangerineUpdateGitHubAutomaticChecks"));XCTAssertEqual(defaults.string(forKey:"history"),"preserved history");XCTAssertEqual(store.reads,0)
     }
     func testRepositoryRenameUsesOnlyTheExistingCredentialAccount() throws {

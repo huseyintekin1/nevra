@@ -33,7 +33,7 @@ final class GitHubUpdateTransportTests: XCTestCase {
         GitHubFixtureProtocol.install { request in
             let path=request.url!.path;paths.append(path)
             XCTAssertEqual(request.value(forHTTPHeaderField:"Authorization"),"Bearer "+self.fakeToken)
-            XCTAssertTrue(path.hasPrefix("/repos/HT/nevra/"))
+            XCTAssertTrue(path.hasPrefix("/repos/huseyintekin1/nevra/"))
             if path.hasSuffix("/releases/latest") { return .init(body:try self.json(["draft":false,"prerelease":false,"assets":[self.asset(self.feed.count,name:"appcast.xml")]])) }
             return .init(body:self.feed)
         }
@@ -47,8 +47,8 @@ final class GitHubUpdateTransportTests: XCTestCase {
             let path=request.url!.path;paths.append(path)
             XCTAssertEqual(request.url?.host,"api.github.com")
             XCTAssertEqual(request.value(forHTTPHeaderField:"Authorization"),"Bearer "+self.fakeToken)
-            if path.hasPrefix("/repos/HT/nevra/") { return .init(status:404,body:Data()) }
-            XCTAssertTrue(path.hasPrefix("/repos/HT/tangerine/"))
+            if path.hasPrefix("/repos/huseyintekin1/nevra/") { return .init(status:404,body:Data()) }
+            XCTAssertTrue(path.hasPrefix("/repos/\(UpdateBrandMigration.previous.slug)/"))
             if path.hasSuffix("/releases/latest") { return .init(body:try self.json(["draft":false,"prerelease":false,"assets":[self.asset(self.feed.count,name:"appcast.xml")]])) }
             return .init(body:self.feed)
         }
@@ -62,7 +62,7 @@ final class GitHubUpdateTransportTests: XCTestCase {
         let configuration=URLSessionConfiguration.ephemeral;configuration.protocolClasses=[GitHubFixtureProtocol.self]
         do { _=try await UpdateBrandMigration.latestFeed(repository:UpdateBrandMigration.current,token:fakeToken,configuration:configuration);XCTFail("Authorization failure must fail closed") }
         catch { XCTAssertEqual(error as? GitHubUpdateTransportError,.forbidden) }
-        XCTAssertEqual(paths,["/repos/HT/nevra/releases/latest"])
+        XCTAssertEqual(paths,["/repos/huseyintekin1/nevra/releases/latest"])
     }
 
     func testRepositoryValidationAndCodableCannotBypassScope() throws {

@@ -53,7 +53,7 @@ final class UpdateCredentialBrokerTests: XCTestCase {
     }
 
     func testNevraStoreUsesTheExistingAccountForReadWriteAndRemove() async throws {
-        let config=try brokerConfiguration(),connection=SyntheticBrokerTransport(expectedRepository:"HT/tangerine")
+        let config=try brokerConfiguration(),connection=SyntheticBrokerTransport(expectedRepository:UpdateBrandMigration.previous.slug)
         let client=UpdateCredentialBrokerClient(configuration:{config},validate:{_ in},connect:{_ in connection})
         let store=BrokerUpdateCredentialStore(client:client)
         let token=try await store.loadToken(for:UpdateBrandMigration.current)

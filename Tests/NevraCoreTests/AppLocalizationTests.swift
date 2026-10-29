@@ -18,7 +18,7 @@ final class AppLocalizationTests:XCTestCase {
         XCTAssertEqual(AppLocalization.text("Convert to JPG · Nevra",language:"tr"),"JPG biçimine dönüştür · Nevra")
     }
     func testTurkishUppercaseKeepsLatinProductAndKeyNames() {
-        XCTAssertEqual(AppLocalization.text("SHOW NEVRA IN FINDER",language:"tr"),"NEVRA'Yİ FINDER'DA GÖSTER")
+        XCTAssertEqual(AppLocalization.text("SHOW NEVRA IN FINDER",language:"tr"),"NEVRA'YI FINDER'DA GÖSTER")
         XCTAssertEqual(AppLocalization.uppercased("Shift'e bas",language:"tr"),"SHIFT'E BAS")
         XCTAssertEqual(AppLocalization.uppercased("Görseli seç",language:"tr"),"GÖRSELİ SEÇ")
         XCTAssertEqual(AppLocalization.uppercased("Shift",language:"en"),"SHIFT")

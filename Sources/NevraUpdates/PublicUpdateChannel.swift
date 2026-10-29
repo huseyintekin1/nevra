@@ -16,7 +16,7 @@ public struct PublicUpdateChannel:Equatable {
     public func migrate(_ defaults:UserDefaults) {
         let key="TangerineUpdateGitHubRepository"
         guard let saved=defaults.string(forKey:key),
-              ["HT/tangerine","HT/nevra",repository.slug].contains(saved.lowercased()) else { return }
+              ["ht/tangerine","ht/nevra",repository.slug].contains(saved.lowercased()) else { return }
         if saved.lowercased() != repository.slug {
             defaults.set(saved,forKey:"NevraPreviousUpdateRepository")
         }

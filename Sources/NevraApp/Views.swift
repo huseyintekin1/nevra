@@ -340,6 +340,7 @@ private struct ClipboardSettingsSectionView: View {
     @AppStorage("linkMetadataEnabled") private var linkPreviews = true
     @AppStorage("inboxEnabled") private var screenshots = true
     @AppStorage("menuBarRevealOn") private var menuBarReveal = false
+    @AppStorage("shelfPresentation") private var shelfPresentation = "both"
     @AppStorage("historyRetentionDays") private var imageRetention = 30
     @AppStorage("textHistoryRetentionDays") private var textRetention = 30
     @AppStorage("linkHistoryRetentionDays") private var linkRetention = 30
@@ -403,6 +404,20 @@ private struct ClipboardSettingsSectionView: View {
                             Text("⌃⌥V").font(.system(size: 13, weight: .semibold, design: .monospaced))
                                 .padding(.horizontal, 10).padding(.vertical, 5)
                                 .background(NevraPalette.sage, in: RoundedRectangle(cornerRadius: 6))
+                        }
+                        Divider()
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                LText("Default Shelf View")
+                                LText("Choose which shelves appear when opened with hotkey.").font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Picker("Default Shelf", selection: $shelfPresentation) {
+                                Text("Images & Texts").tag("both")
+                                Text("All (Images, Texts, Links)").tag("all")
+                                Text("Images Only").tag("images")
+                                Text("Texts Only").tag("texts")
+                            }.labelsHidden().frame(width: 190)
                         }
                         Divider()
                         Toggle(isOn: $menuBarReveal) {

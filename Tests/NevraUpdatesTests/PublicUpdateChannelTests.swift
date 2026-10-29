@@ -2,7 +2,7 @@ import XCTest
 @testable import NevraUpdates
 
 final class PublicUpdateChannelTests:XCTestCase {
-    private let info:[String:Any]=["NevraPublicUpdateRepository":"HT/nevra-app","SUFeedURL":"https://github.com/HT/nevra-app/releases/latest/download/appcast.xml"]
+    private let info:[String:Any]=["NevraPublicUpdateRepository":"HT/nevra-app","SUFeedURL":"https://github.com/ht/nevra-app/releases/latest/download/appcast.xml"]
     private final class NoCredentials:UpdateCredentialStore,@unchecked Sendable {
         func token(for repository:GitHubRepository) throws->String { XCTFail("Anonymous migration read a private token");throw UpdateCredentialError.missing }
         func save(_ token:String,for repository:GitHubRepository) throws { XCTFail("Anonymous migration wrote a credential") }
@@ -23,7 +23,7 @@ final class PublicUpdateChannelTests:XCTestCase {
             await MainActor.run {
                 let updater=AppUpdater(credentials:NoCredentials(),defaults:defaults,info:info)
                 XCTAssertNil(updater.repository);XCTAssertFalse(updater.requiresToken);XCTAssertFalse(updater.hasSavedToken)
-                XCTAssertEqual(updater.officialRepository?.slug,"HT/nevra-app")
+                XCTAssertEqual(updater.officialRepository?.slug,"ht/nevra-app")
             }
             XCTAssertEqual(defaults.string(forKey:"history"),"retained")
             if previous != nil { XCTAssertEqual(defaults.object(forKey:"SUEnableAutomaticChecks") as? Bool,false) }

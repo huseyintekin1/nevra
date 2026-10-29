@@ -371,6 +371,7 @@
 "CHOOSE VIDEO, AUDIO, THUMBNAIL OR IMAGES." = "CHOOSE VIDEO, AUDIO, THUMBNAIL OR IMAGES.";
 "CHOOSE VISUALIZATION IMAGE…" = "CHOOSE VISUALIZATION IMAGE…";
 "CHOOSE WHAT YOUR FILE SHARES." = "CHOOSE WHAT YOUR FILE SHARES.";
+"CHOOSE WHICH SHELVES APPEAR WHEN OPENED WITH HOTKEY." = "CHOOSE WHICH SHELVES APPEAR WHEN OPENED WITH HOTKEY.";
 "CHOOSE ZIP, TAR OR GZIP." = "CHOOSE ZIP, TAR OR GZIP.";
 "CLARITY" = "CLARITY";
 "CLEAR" = "CLEAR";
@@ -541,6 +542,7 @@
 "Choose video, audio, thumbnail or images." = "Choose video, audio, thumbnail or images.";
 "Choose visualization image…" = "Choose visualization image…";
 "Choose what your file shares." = "Choose what your file shares.";
+"Choose which shelves appear when opened with hotkey." = "Choose which shelves appear when opened with hotkey.";
 "Clarity" = "Clarity";
 "Clear" = "Clear";
 "Clear Float" = "Clear Float";
@@ -629,6 +631,7 @@
 "Custom dimensions" = "Custom dimensions";
 "Cut" = "Cut";
 "DARK" = "DARK";
+"DEFAULT SHELF VIEW" = "DEFAULT SHELF VIEW";
 "DEFAULTS APPLY WHENEVER YOU CHOOSE AN OUTPUT FORMAT." = "DEFAULTS APPLY WHENEVER YOU CHOOSE AN OUTPUT FORMAT.";
 "DEFAULTS COULD NOT BE RESTORED" = "DEFAULTS COULD NOT BE RESTORED";
 "DEGREES" = "DEGREES";
@@ -698,6 +701,7 @@
 "DROP SOMETHING GOOD." = "DROP SOMETHING GOOD.";
 "DUPLICATE" = "DUPLICATE";
 "Dark" = "Dark";
+"Default Shelf View" = "Default Shelf View";
 "Defaults apply whenever you choose an output format." = "Defaults apply whenever you choose an output format.";
 "Defaults could not be restored" = "Defaults could not be restored";
 "Degrees" = "Degrees";

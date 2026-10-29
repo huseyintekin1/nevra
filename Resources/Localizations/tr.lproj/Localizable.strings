@@ -371,6 +371,7 @@
 "CHOOSE VIDEO, AUDIO, THUMBNAIL OR IMAGES." = "VİDEO, SES, KÜÇÜK RESİM VEYA GÖRSEL SEÇ.";
 "CHOOSE VISUALIZATION IMAGE…" = "GÖRSELLEŞTİRME GÖRSELİ SEÇ…";
 "CHOOSE WHAT YOUR FILE SHARES." = "DOSYANIN NE PAYLAŞTIĞINI SEN SEÇ.";
+"CHOOSE WHICH SHELVES APPEAR WHEN OPENED WITH HOTKEY." = "KISAYOLLA AÇILDIĞINDA HANGİ RAFLARIN GÖRÜNECEĞİNİ SEÇİN.";
 "CHOOSE ZIP, TAR OR GZIP." = "ZIP, TAR VEYA GZIP SEÇ.";
 "CLARITY" = "NETLİK";
 "CLEAR" = "TEMİZLE";
@@ -541,6 +542,7 @@
 "Choose video, audio, thumbnail or images." = "Video, ses, küçük resim veya görsel seç.";
 "Choose visualization image…" = "Görselleştirme görseli seç…";
 "Choose what your file shares." = "Dosyanın ne paylaştığını sen seç.";
+"Choose which shelves appear when opened with hotkey." = "Kısayolla açıldığında hangi rafların görüneceğini seçin.";
 "Clarity" = "Netlik";
 "Clear" = "Temizle";
 "Clear Float" = "Yüzen Pencereyi Temizle";
@@ -629,6 +631,7 @@
 "Custom dimensions" = "Özel boyutlar";
 "Cut" = "Kes";
 "DARK" = "KOYU";
+"DEFAULT SHELF VIEW" = "VARSAYILAN RAF GÖRÜNÜMÜ";
 "DEFAULTS APPLY WHENEVER YOU CHOOSE AN OUTPUT FORMAT." = "BİR ÇIKTI BİÇİMİ SEÇTİĞİNDE BU VARSAYILANLAR UYGULANIR.";
 "DEFAULTS COULD NOT BE RESTORED" = "VARSAYILANLARA DÖNÜLEMEDİ";
 "DEGREES" = "DERECE";
@@ -698,6 +701,7 @@
 "DROP SOMETHING GOOD." = "BİR DOSYA BIRAK.";
 "DUPLICATE" = "ÇOĞALT";
 "Dark" = "Koyu";
+"Default Shelf View" = "Varsayılan Raf Görünümü";
 "Defaults apply whenever you choose an output format." = "Bir çıktı biçimi seçtiğinde bu varsayılanlar uygulanır.";
 "Defaults could not be restored" = "Varsayılanlara dönülemedi";
 "Degrees" = "Derece";

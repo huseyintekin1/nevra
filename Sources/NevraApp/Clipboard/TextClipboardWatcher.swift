@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 final class TextClipboardWatcher {
     static let maximumDataBytes = 1024 * 1024
     static var isEnabled: Bool {
-        get { UserDefaults.standard.bool(forKey: "textClipboardEnabled") }
+        get { UserDefaults.standard.object(forKey: "textClipboardEnabled") as? Bool ?? true }
         set { UserDefaults.standard.set(newValue, forKey: "textClipboardEnabled") }
     }
     private let source: any ClipboardSource

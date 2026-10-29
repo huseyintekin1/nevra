@@ -123,7 +123,22 @@ enum NevraApplication {
 
     func applicationDidFinishLaunching(_ notification:Notification) {
         NevraAppearance.apply()
-        UserDefaults.standard.register(defaults:["enabled":true,"reveal":true,"sound":true,"convertKey":"shift","toolsKey":"command","actionsKey":"control","wheelScale":1.0,"windowManagementEnabled":true])
+        UserDefaults.standard.register(defaults:[
+            "enabled": true,
+            "reveal": true,
+            "sound": true,
+            "convertKey": "shift",
+            "toolsKey": "command",
+            "actionsKey": "control",
+            "wheelScale": 1.0,
+            "windowManagementEnabled": true,
+            "clipboardEnabled": true,
+            "textClipboardEnabled": true,
+            "linkClipboardEnabled": true,
+            "linkMetadataEnabled": true,
+            "inboxEnabled": true,
+            "shelfPresentation": "both"
+        ])
         let mainMenu=NSMenu();let appMenu=NSMenu()
         appMenu.addItem(withTitle:"Home",action:#selector(showHome),keyEquivalent:"1")
         appMenu.addItem(withTitle:"Library",action:#selector(showLibrary),keyEquivalent:"2")

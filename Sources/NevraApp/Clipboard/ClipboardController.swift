@@ -151,6 +151,7 @@ final class ClipboardController: NSObject, NSMenuDelegate {
     /// pointer leaves the menu bar, so it does not come back over a menu.
     private var menuBarSuppressed = false
     private var clickMonitors: [Any] = []
+    private var escapeMonitors: [Any] = []
     private var awaySince: Date?
     /// Whether the line should be up, if nothing prevents it. A full screen
     /// app on that screen does: the line waits until you leave full screen.
@@ -632,7 +633,10 @@ final class ClipboardController: NSObject, NSMenuDelegate {
         // Tucked away, the line leaves no window behind: an invisible strip
         // over the top of the screen would still sit above other apps for
         // anything that checks what is on top, like screen automation.
-        if !on {
+        if on {
+            startEscapeMonitor()
+        } else {
+            stopEscapeMonitor()
             pointerFocus = false
             pinned = false
             peekUntil = .distantPast
@@ -735,6 +739,40 @@ final class ClipboardController: NSObject, NSMenuDelegate {
         if let local = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown], handler: { e in handler(e); return e }) {
             clickMonitors.append(local)
         }
+    }
+
+    private func startEscapeMonitor() {
+        stopEscapeMonitor()
+        let global = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            MainActor.assumeIsolated {
+                guard let self, self.isRevealed else { return }
+                if event.keyCode == 53 {
+                    if self.commandPalette != nil || self.preview != nil || self.textPreview != nil || self.linkPreview != nil { return }
+                    if self.line.closeShelfSearch() { return }
+                    self.pinned = false
+                    self.setRevealed(false)
+                }
+            }
+        }
+        if let global { escapeMonitors.append(global) }
+
+        let local = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self, self.isRevealed else { return event }
+            if event.keyCode == 53 {
+                if self.commandPalette != nil || self.preview != nil || self.textPreview != nil || self.linkPreview != nil { return event }
+                if self.line.closeShelfSearch() { return nil }
+                self.pinned = false
+                self.setRevealed(false)
+                return nil
+            }
+            return event
+        }
+        if let local { escapeMonitors.append(local) }
+    }
+
+    private func stopEscapeMonitor() {
+        for monitor in escapeMonitors { NSEvent.removeMonitor(monitor) }
+        escapeMonitors.removeAll()
     }
     /// How long the cursor is away before the line tucks back up.
     private static let retractDelay: TimeInterval = 0.5

@@ -63,6 +63,7 @@
 "Folders" = "Folders";
 "General" = "General";
 "Handle screenshots" = "Handle screenshots";
+"Copy new screenshots automatically" = "Copy new screenshots automatically";
 "Hang copied images" = "Hang copied images";
 "Hang copied text" = "Hang copied text";
 "Hide line" = "Hide line";

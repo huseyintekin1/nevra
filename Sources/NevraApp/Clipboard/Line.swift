@@ -840,6 +840,11 @@ final class Line: ObservableObject {
         set { defaults.set(!newValue, forKey: "soundOff") }
     }
 
+    var autoCopyScreenshots: Bool {
+        get { defaults.object(forKey: "autoCopyScreenshots") as? Bool ?? true }
+        set { defaults.set(newValue, forKey: "autoCopyScreenshots") }
+    }
+
     var liveCount: Int { items.filter { !$0.falling }.count }
 
     init(defaults: UserDefaults = .standard, inbox: URL = Inbox.folder,

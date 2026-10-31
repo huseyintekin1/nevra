@@ -63,6 +63,7 @@
 "Folders" = "Klasörler";
 "General" = "Genel";
 "Handle screenshots" = "Ekran görüntülerini yönet";
+"Copy new screenshots automatically" = "Yeni ekran görüntülerini otomatik kopyala";
 "Hang copied images" = "Kopyalanan görselleri as";
 "Hang copied text" = "Kopyalanan metinleri as";
 "Hide line" = "İpi gizle";

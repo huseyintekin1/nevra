@@ -252,8 +252,9 @@ private struct ClipboardSettingsView: View {
             Section {
                 Toggle(L("Handle screenshots"), isOn: model.binding(get: { Inbox.isEnabled }, set: model.setScreenshots))
                     .disabled(!model.allowsSystemChanges)
+                Toggle(L("Copy new screenshots automatically"), isOn: model.binding(get: { line.autoCopyScreenshots }, set: { line.autoCopyScreenshots = $0 }))
             } header: { Text(L("Screenshots")) } footer: {
-                Text(L("Screenshots hang instantly and skip the Desktop. Your macOS screenshot settings are restored when the app quits."))
+                Text(L("Screenshots hang instantly and skip the Desktop. When copied automatically, you can paste them anywhere right away with ⌘V."))
             }
             Section {
                 ForEach(ClipboardController.extraFolders, id: \.path) { folder in

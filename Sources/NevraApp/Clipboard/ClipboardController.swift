@@ -523,6 +523,9 @@ final class ClipboardController: NSObject, NSMenuDelegate {
             itemsChanged()
             return
         }
+        if line.autoCopyScreenshots {
+            line.copy(id)
+        }
         // The reveal precedes insertion for the capture animation. Include the
         // new first card when this capture opened the line, without replacing
         // the user's selection on a line that was already open.

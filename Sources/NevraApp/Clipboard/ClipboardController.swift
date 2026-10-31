@@ -152,6 +152,7 @@ final class ClipboardController: NSObject, NSMenuDelegate {
     private var menuBarSuppressed = false
     private var clickMonitors: [Any] = []
     private var escapeMonitors: [Any] = []
+    private var escapeHotKey: HotKey?
     private var awaySince: Date?
     /// Whether the line should be up, if nothing prevents it. A full screen
     /// app on that screen does: the line waits until you leave full screen.
@@ -743,6 +744,14 @@ final class ClipboardController: NSObject, NSMenuDelegate {
 
     private func startEscapeMonitor() {
         stopEscapeMonitor()
+        escapeHotKey = HotKey(keyCode: kVK_Escape, modifiers: 0) { [weak self] in
+            guard let self, self.isRevealed else { return }
+            if self.commandPalette != nil || self.preview != nil || self.textPreview != nil || self.linkPreview != nil { return }
+            if self.line.closeShelfSearch() { return }
+            self.pinned = false
+            self.setRevealed(false)
+        }
+
         let global = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
             MainActor.assumeIsolated {
                 guard let self, self.isRevealed else { return }
@@ -771,6 +780,8 @@ final class ClipboardController: NSObject, NSMenuDelegate {
     }
 
     private func stopEscapeMonitor() {
+        escapeHotKey?.invalidate()
+        escapeHotKey = nil
         for monitor in escapeMonitors { NSEvent.removeMonitor(monitor) }
         escapeMonitors.removeAll()
     }

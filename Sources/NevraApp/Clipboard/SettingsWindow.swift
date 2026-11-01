@@ -5,7 +5,7 @@ import SwiftUI
 
 enum AppIdentity {
     static var name: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
-        ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Tendedero" }
+        ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "Nevra" }
     static var version: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development" }
     static var build: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "—" }
     static var statusSymbol: String { Bundle.main.bundleIdentifier?.hasPrefix("local.clipboardline.") == true ? "doc.on.clipboard" : "tshirt" }

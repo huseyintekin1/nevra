@@ -4,7 +4,7 @@ import Combine
 import Carbon
 import os
 
-let log = Logger(subsystem: "app.tendedero.Tendedero", category: "line")
+let log = Logger(subsystem: "app.nevra.Nevra", category: "line")
 
 /// One screenshot hanging on the line.
 struct Pegged: Identifiable, Equatable {

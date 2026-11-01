@@ -36,7 +36,19 @@ enum Inbox {
 
     static let folder: URL = {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        return base.appendingPathComponent("Tendedero/Screenshots", isDirectory: true)
+        let newFolder = base.appendingPathComponent("Nevra/Screenshots", isDirectory: true)
+        let legacyFolder = base.appendingPathComponent("Tendedero/Screenshots", isDirectory: true)
+
+        let fm = FileManager.default
+        // Tendedero klasöründeki eski dosyaları Nevra klasörüne taşı
+        if fm.fileExists(atPath: legacyFolder.path) && !fm.fileExists(atPath: newFolder.path) {
+            try? fm.createDirectory(at: newFolder.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try? fm.moveItem(at: legacyFolder, to: newFolder)
+            // Eski boş Tendedero klasörünü kaldır
+            try? fm.removeItem(at: legacyFolder.deletingLastPathComponent())
+        }
+
+        return newFolder
     }()
 
     /// The user's choice, kept across launches.

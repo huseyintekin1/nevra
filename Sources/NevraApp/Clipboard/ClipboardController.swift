@@ -722,19 +722,49 @@ final class ClipboardController: NSObject, NSMenuDelegate {
         return NSEvent.mouseLocation
     }
 
-    /// A click anywhere in the top bar of any screen, a menu or an icon, puts the line away.
+    private func isPointOverShelfItem(_ point: NSPoint) -> Bool {
+        guard let panel, panel.isVisible else { return false }
+        guard NSMouseInRect(point, panel.frame, false) else { return false }
+        let local = panel.convertPoint(fromScreen: point)
+        let flipped = CGPoint(x: local.x, y: panel.frame.height - local.y)
+        return line.hitRects.values.contains { $0.insetBy(dx: -4, dy: -4).contains(flipped) }
+    }
+
+    /// A click anywhere outside or on an empty space, in the top bar of any screen, puts the line away.
     private func watchMenuBarClicks() {
         let handler: (NSEvent?) -> Void = { [weak self] event in
             MainActor.assumeIsolated {
                 guard let self else { return }
                 let p = Self.clickScreenPoint(event)
-                guard NSScreen.screens.contains(where: { NSMouseInRect(p, Self.menuBarBand(of: $0), false) }) else { return }
-                self.menuBarSuppressed = true
-                self.hotZoneSince = nil
-                if self.isRevealed {
-                    self.pinned = false
-                    self.setRevealed(false)
+                let inMenuBar = NSScreen.screens.contains(where: { NSMouseInRect(p, Self.menuBarBand(of: $0), false) })
+                if inMenuBar {
+                    self.menuBarSuppressed = true
+                    self.hotZoneSince = nil
+                    if self.isRevealed {
+                        _ = self.line.closeShelfSearch()
+                        self.pinned = false
+                        self.setRevealed(false)
+                    }
+                    return
                 }
+
+                guard self.isRevealed else { return }
+
+                // If clicking directly on a photo, text/link card, action button or search bar, don't dismiss
+                if self.isPointOverShelfItem(p) { return }
+
+                // Don't dismiss if the user is in the middle of dragging or interacting with an open modal/picker
+                if GrabView.isDragging || GrabView.isShowingMenu { return }
+                if self.commandPalette != nil || self.preview != nil || self.textPreview != nil || self.linkPreview != nil || self.previewWindow != nil { return }
+                if let settingsWindow = self.settingsController?.window, settingsWindow.isVisible, NSMouseInRect(p, settingsWindow.frame, false) { return }
+                if let libraryWindow = self.libraryController?.window, libraryWindow.isVisible, NSMouseInRect(p, libraryWindow.frame, false) { return }
+                if self.pinFolderPicker != nil || self.tagPicker != nil || self.nameAndPinPicker != nil || self.shortcutRecorder != nil || ToggleShortcutRecorder.shared.isRecording || self.operationBusy { return }
+
+                // Clicked on empty area of shelf or outside the shelf: dismiss shelf just like Escape
+                _ = self.line.closeShelfSearch()
+                self.pinned = false
+                let restore = event?.window != nil
+                self.setRevealed(false, restoreApplication: restore)
             }
         }
         if let global = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown], handler: handler) {

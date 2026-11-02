@@ -55,6 +55,8 @@
 	</dict>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>Nevra watches the Desktop to automatically catch new screenshots and hang them on your shelf.</string>
 	<key>SUAllowsAutomaticUpdates</key>
 	<false/>
 	<key>SUAutomaticallyUpdate</key>

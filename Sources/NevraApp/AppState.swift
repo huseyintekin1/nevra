@@ -69,7 +69,7 @@ struct JobRecord:Codable,Identifiable {
         if options == nil,case .convert(let format)=operation { settings=FormatPreferences.shared.options(for:format) }
         if case .convert("epub")=operation,inputs.allSatisfy({FileCategory.detect($0) == .pdf}),!immediate { onEPUBOptions?();return }
         if case .tool(.removeMetadata)=operation,inputs.count>1 { execute(operation,options:settings);return }
-        if case .tool(let kind)=operation,!immediate,!([.muteVideo,.extractArchive,.createPDF,.splitPDF].contains(kind)) {
+        if case .tool(let kind)=operation,!immediate,!([.muteVideo,.extractArchive,.createPDF].contains(kind)) {
             onShowTool?(kind);return
         }
         execute(operation,options:settings)

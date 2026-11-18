@@ -41,7 +41,20 @@ struct WheelItem {
             if !photos,(video || media?.imageURL == nil) { items.append(WheelItem(title:"Audio MP3…",symbol:"waveform",webAction:.audio)) }
             items += [WheelItem(title:"Copy link",symbol:"link",webAction:.copy),WheelItem(title:"Open link",symbol:"safari",webAction:.open)]
         } else { switch mode {
-        case .convert: items=FeatureCatalog.formats(for:inputs).map{WheelItem(title:$0 == "gz" ? "GZIP":$0.uppercased(),operation:.convert($0))}
+        case .convert:
+            var formats=FeatureCatalog.formats(for:inputs).map{WheelItem(title:$0 == "gz" ? "GZIP":$0.uppercased(),operation:.convert($0))}
+            if inputs.allSatisfy({ FeatureCatalog.normalizedExtension($0) == "pdf" }) {
+                if inputs.count > 1 {
+                    let title=FeatureCatalog.toolNames[.mergePDF] ?? ToolKind.mergePDF.title
+                    formats.insert(WheelItem(title:title,symbol:FeatureCatalog.toolSymbols[.mergePDF],operation:.tool(.mergePDF)),at:0)
+                } else {
+                    let splitTitle=FeatureCatalog.toolNames[.splitPDF] ?? ToolKind.splitPDF.title
+                    let organizeTitle=FeatureCatalog.toolNames[.organizePDF] ?? ToolKind.organizePDF.title
+                    formats.insert(WheelItem(title:splitTitle,symbol:FeatureCatalog.toolSymbols[.splitPDF],operation:.tool(.splitPDF)),at:0)
+                    formats.insert(WheelItem(title:organizeTitle,symbol:FeatureCatalog.toolSymbols[.organizePDF],operation:.tool(.organizePDF)),at:1)
+                }
+            }
+            items=formats
         case .tools: items=FeatureCatalog.tools(for:inputs).map{WheelItem(title:FeatureCatalog.toolNames[$0] ?? $0.title,symbol:FeatureCatalog.toolSymbols[$0],operation:.tool($0))}
         case .actions: items=FileAction.allCases.map{WheelItem(title:$0.title,symbol:$0.symbol,action:$0)}
         } }
